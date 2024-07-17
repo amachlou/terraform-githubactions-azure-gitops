@@ -17,7 +17,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Current dir
-        run: echo "CurrDir: $(pwd)"
+        run: echo "CurrDir $(pwd)"
 
       - name: Init Terraform
         run: terraform init
