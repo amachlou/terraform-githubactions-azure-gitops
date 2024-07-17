@@ -1,0 +1,27 @@
+name: GitOps Pipeline
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-to-azure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set ip Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Set ip Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Current dir
+        run: echo "CurrDir: $(pwd)"
+
+      - name: Init Terraform
+        run: terraform init
+        working-directory: ./terraform
+
+    #   - name: Set ip Terraform
+    #     run: hashicorp/setup-terraform@v3
