@@ -9,10 +9,10 @@ permissions:
       contents: read
       
 jobs:
-  authenticate:
-    uses: ./.github/workflows/log-to-azure.yml
+  # authenticate:
+  #   uses: ./.github/workflows/log-to-azure.yml
   deploy-to-azure:
-    needs: authenticate
+    # needs: authenticate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -35,4 +35,9 @@ jobs:
       - name: Plan Terraform
         run: terraform plan
         working-directory: ./terraform
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
