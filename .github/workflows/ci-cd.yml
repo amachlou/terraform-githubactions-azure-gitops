@@ -4,6 +4,8 @@ on:
     branches:
       - master
 jobs:
+  authenticate:
+    uses: ./.github/workflows/log-to-azure.yml
   deploy-to-azure:
     runs-on: ubuntu-latest
     steps:
@@ -12,9 +14,6 @@ jobs:
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
-
-      - name: Set ip Terraform
-        uses: ./.github/workflows/log-to-azure.yml
 
       - name: Current dir
         run: echo "CurrDir $(pwd)"
