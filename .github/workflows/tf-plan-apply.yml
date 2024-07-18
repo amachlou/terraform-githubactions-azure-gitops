@@ -9,7 +9,7 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-
+    environment: DEV
     steps:
     - name: 'Checkout GitHub Actions'
       uses: actions/checkout@v4
