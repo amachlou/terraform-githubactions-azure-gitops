@@ -1,8 +1,8 @@
 name: GitOps Pipeline
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
       
 permissions:
       id-token: write
