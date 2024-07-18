@@ -7,7 +7,26 @@ on:
       - master
 
 jobs:
+  auth-to-az:
+    runs-on: ubuntu-latest
+    environment: DEV
+    steps:
+    - name: 'Az CLI login'
+      uses: azure/login@v2
+      with:
+          auth-type: IDENTITY
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  
+    - name: 'Run Azure CLI commands'
+      run: |
+          az account show
+          az group list
+          pwd
   terraform:
+    needs: auth-to-az
     runs-on: ubuntu-latest
     environment: DEV
     steps:
