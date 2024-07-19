@@ -53,7 +53,7 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         
     - name: 'Terraform Apply'
-      if: github.ref == 'refs/heads/establish-login-to-azure'
+      # if: github.ref == 'refs/heads/establish-login-to-azure'
       run: terraform apply -auto-approve
       working-directory: ./terraform
       
