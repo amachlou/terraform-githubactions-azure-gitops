@@ -8,9 +8,10 @@ terraform {
   
   backend "azurerm" {
         resource_group_name  = azurerm_resource_group.rg.name
-        storage_account_name = azurerm_storage_account.tfstate.name
-        container_name       = azurerm_storage_container.tfstate.name
+        storage_account_name = azurerm_storage_account.tfstate-storage-account.name
+        container_name       = azurerm_storage_container.tfstate-storage-container.name
         key                  = "terraform.tfstate"
+        depends_on           = [azurerm_resource_group.rg, azurerm_storage_account.tfstate-storage-account, azurerm_storage_container.tfstate-storage-container]
     }
 }
 
@@ -31,7 +32,7 @@ resource "random_string" "resource_code" {
   upper   = false
 }
 
-resource "azurerm_storage_account" "tfstate" {
+resource "azurerm_storage_account" "tfstate-storage-account" {
   name                     = "tfstate-storage-account-${random_string.resource_code.result}"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
@@ -46,6 +47,6 @@ resource "azurerm_storage_account" "tfstate" {
 
 resource "azurerm_storage_container" "tfstate" {
   name                  = "tfstate-storage-container-${random_string.resource_code.result}"
-  storage_account_name  = azurerm_storage_account.tfstate.name
+  storage_account_name  = azurerm_storage_account.tfstate-storage-account.name
   container_access_type = "private"
 }
