@@ -30,7 +30,7 @@ resource "random_string" "resource_code" {
 # }
 
 resource "azurerm_storage_account" "tfstate" {
-  name                     = "tfstate${random_string.resource_code.result}"
+  name                     = "tfstate-storage_account-${random_string.resource_code.result}"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
