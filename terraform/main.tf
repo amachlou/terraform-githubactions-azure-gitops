@@ -5,6 +5,13 @@ terraform {
       version = "~>3.0"
     }
   }
+  
+  backend "azurerm" {
+        resource_group_name  = azurerm_resource_group.rg.name
+        storage_account_name = azurerm_storage_account.tfstate.name
+        container_name       = azurerm_storage_container.tfstate.name
+        key                  = "terraform.tfstate"
+    }
 }
 
 provider "azurerm" {
@@ -28,13 +35,6 @@ resource "random_string" "resource_code" {
 #   name     = "tfstate"
 #   location = "westeurope"
 # }
-
-backend "azurerm" {
-      resource_group_name  = azurerm_resource_group.rg.name
-      storage_account_name = azurerm_storage_account.tfstate.name
-      container_name       = azurerm_storage_container.tfstate.name
-      key                  = "terraform.tfstate"
-  }
 
 resource "azurerm_storage_account" "tfstate" {
   name                     = "tfstate-storage-account-${random_string.resource_code.result}"
