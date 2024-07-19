@@ -13,7 +13,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg" {
   location = "westeurope"
-  name     = "gitops-ress-grp-${random_string.resource_code.result"
+  name     = "gitops-ress-grp-${random_string.resource_code.result}"
 }
 
 # *******************************************
