@@ -10,10 +10,6 @@ terraform {
         resource_group_name  = azurerm_resource_group.rg.name
         storage_account_name = azurerm_storage_account.tfstate-storage-account.name
         container_name       = azurerm_storage_container.tfstate-storage-container.name
-
-        resource_group_name  = azurerm_resource_group.rg.name
-        storage_account_name = azurerm_storage_account.tfstate-storage-account.name
-        container_name       = azurerm_storage_container.tfstate-storage-container.name
         key                  = "terraform.tfstate"
     }
 }
