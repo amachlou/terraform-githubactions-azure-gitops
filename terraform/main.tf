@@ -31,11 +31,6 @@ resource "random_string" "resource_code" {
   upper   = false
 }
 
-# resource "azurerm_resource_group" "tfstate" {
-#   name     = "tfstate"
-#   location = "westeurope"
-# }
-
 resource "azurerm_storage_account" "tfstate" {
   name                     = "tfstate-storage-account-${random_string.resource_code.result}"
   resource_group_name      = azurerm_resource_group.rg.name
