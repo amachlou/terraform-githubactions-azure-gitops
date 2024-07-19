@@ -21,8 +21,43 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   
-    # - name: 'Run Azure CLI commands'
-    #   run: |
-    #       az account show
-    #       az group list
-    #       pwd
+    - name: 'Run Azure CLI commands'
+      run: |
+          az account show
+          az group list
+          pwd
+  
+    - name: 'Run Azure CLI commands'
+      run: |
+          az account show
+          az group list
+          pwd
+      
+  terraform:
+    # needs: auth-to-az
+    runs-on: ubuntu-latest
+    environment: DEV
+    steps:
+    - name: 'Checkout GitHub Actions'
+      uses: actions/checkout@v4
+
+    - name: 'Set up Terraform'
+      uses: hashicorp/setup-terraform@v2
+
+    - name: 'Terraform Init'
+      run: terraform init
+      working-directory: ./terraform
+
+    - name: 'Terraform Plan'
+      run: terraform plan
+      working-directory: ./terraform
+
+    - name: 'Terraform Apply'
+      if: github.ref == 'refs/heads/main'
+      run: terraform apply -auto-approve
+      working-directory: ./terraform
+      # env:
+      #   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      #   # ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      #   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      #   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
