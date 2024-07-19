@@ -1,4 +1,26 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3.0"
+    }
+  }
+  
+  backend "azurerm" {
+        resource_group_name  = azurerm_resource_group.rg.name
+        storage_account_name = azurerm_storage_account.tfstate-storage-account.name
+        container_name       = azurerm_storage_container.tfstate-storage-container.name
 
+        resource_group_name  = azurerm_resource_group.rg.name
+        storage_account_name = azurerm_storage_account.tfstate-storage-account.name
+        container_name       = azurerm_storage_container.tfstate-storage-container.name
+        key                  = "terraform.tfstate"
+    }
+}
+
+provider "azurerm" {
+  features {}
+}
 
 resource "azurerm_resource_group" "rg" {
   location = "westeurope"
@@ -30,27 +52,4 @@ resource "azurerm_storage_container" "tfstate" {
   name                  = "tfstate-storage-container-${random_string.resource_code.result}"
   storage_account_name  = azurerm_storage_account.tfstate-storage-account.name
   container_access_type = "private"
-}
-
-
-# ****************
-
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~>3.0"
-    }
-  }
-  
-  backend "azurerm" {
-        resource_group_name  = azurerm_resource_group.rg.name
-        storage_account_name = azurerm_storage_account.tfstate-storage-account.name
-        container_name       = azurerm_storage_container.tfstate-storage-container.name
-        key                  = "terraform.tfstate"
-    }
-}
-
-provider "azurerm" {
-  features {}
 }
