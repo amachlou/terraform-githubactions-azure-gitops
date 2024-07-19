@@ -17,7 +17,7 @@ jobs:
       # valid inputs are ['creds', 'client-id', 'tenant-id', 
       #                   'subscription-id', 'enable-AzPSSession', 'environment', 
       #                   'allow-no-subscriptions', 'audience', 'auth-type']
-          auth-type: IDENTITY
+          auth-type: SERVICE_PRINCIPAL #IDENTITY
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           # client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
