@@ -13,5 +13,5 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg" {
   location = "westeurope"
-  name     = "gitops-ress-grp"
+  name     = "gitops-ress-grp-222"
 }
