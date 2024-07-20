@@ -7,9 +7,9 @@ terraform {
   }
   
   backend "azurerm" {
-        resource_group_name  = azurerm_resource_group.rg.name
-        storage_account_name = azurerm_storage_account.tfstate-storage-account.name
-        container_name       = azurerm_storage_container.tfstate-storage-container.name
+        resource_group_name  = var.resource_group_name
+        storage_account_name = var.storage_account_name
+        container_name       = var.storage_container_name
         key                  = "terraform.tfstate"
     }
 }
@@ -20,21 +20,15 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg" {
   location = "westeurope"
-  name     = "gitops-ress-grp-${random_string.resource_code.result}"
+  name     = var.resource_group_name
 }
 
 # *******************************************
 
-resource "random_string" "resource_code" {
-  length  = 5
-  special = false
-  upper   = false
-}
-
 resource "azurerm_storage_account" "tfstate-storage-account" {
-  name                     = "tfstate-storage-account-${random_string.resource_code.result}"
+  name                     = var.storage_account_name
   resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
+  location                 = var.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
   allow_nested_items_to_be_public = false
@@ -45,7 +39,7 @@ resource "azurerm_storage_account" "tfstate-storage-account" {
 }
 
 resource "azurerm_storage_container" "tfstate" {
-  name                  = "tfstate-storage-container-${random_string.resource_code.result}"
+  name                  = var.storage_container_name
   storage_account_name  = azurerm_storage_account.tfstate-storage-account.name
   container_access_type = "private"
 }

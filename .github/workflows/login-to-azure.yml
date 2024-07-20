@@ -32,7 +32,7 @@ jobs:
           az account show
           az group list
           pwd
-    # .....
+    # ..... ..... ..... ..... ..... ..... ..... ..... ..... .....
     - name: 'Checkout GitHub Actions'
       uses: actions/checkout@v4
 
