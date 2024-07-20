@@ -5,13 +5,10 @@ terraform {
       version = "~>3.0"
     }
   }
-  
-  backend "azurerm" {
-        resource_group_name  = var.resource_group_name
-        storage_account_name = var.storage_account_name
-        container_name       = var.storage_container_name
-        key                  = "terraform.tfstate"
-    }
+
+  backend "local" {
+    path = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
@@ -23,14 +20,14 @@ resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
 }
 
-# *******************************************
+# ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** 
 
 resource "azurerm_storage_account" "tfstate-storage-account" {
-  name                     = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+  name                            = var.storage_account_name
+  resource_group_name             = azurerm_resource_group.rg.name
+  location                        = var.location
+  account_tier                    = "Standard"
+  account_replication_type        = "LRS"
   allow_nested_items_to_be_public = false
 
   tags = {
