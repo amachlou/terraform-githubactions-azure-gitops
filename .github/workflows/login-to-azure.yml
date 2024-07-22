@@ -21,6 +21,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   
   deploy-terraform-resources:
+    needs: login-to-azure
     runs-on: ubuntu-latest
     environment: DEV        
     steps:
