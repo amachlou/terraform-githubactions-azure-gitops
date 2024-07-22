@@ -32,7 +32,7 @@ jobs:
           az account show
           az group list
           pwd
-    # .....
+    # ..... ..... ..... ..... ..... ..... ..... ..... ..... .....
     - name: 'Checkout GitHub Actions'
       uses: actions/checkout@v4
 
@@ -41,11 +41,11 @@ jobs:
 
     - name: 'Terraform Init'
       run: terraform init
-      working-directory: ./terraform
+      working-directory: ./terraform/setup-backend-resources
 
     - name: 'Terraform Plan'
       run: terraform plan
-      working-directory: ./terraform
+      working-directory: ./terraform/setup-backend-resources
       env:
         ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         # ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -55,5 +55,5 @@ jobs:
     - name: 'Terraform Apply'
       # if: github.ref == 'refs/heads/establish-login-to-azure'
       run: terraform apply -auto-approve
-      working-directory: ./terraform
+      working-directory: ./terraform/setup-backend-resources
       
