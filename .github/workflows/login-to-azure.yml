@@ -25,8 +25,8 @@ jobs:
   #   runs-on: ubuntu-latest
   #   environment: DEV        
   #   steps:
-    - name: 'Checkout GitHub Actions'
-      uses: actions/checkout@v4
+    # - name: 'Checkout GitHub Actions'
+    #   uses: actions/checkout@v4
 
     - name: 'Run Azure CLI commands'
       run: |
