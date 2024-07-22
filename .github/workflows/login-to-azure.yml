@@ -8,17 +8,19 @@ permissions:
       
 jobs: 
   login-to-azure:
-    runs-on: ubuntu-latest
-    environment: DEV
-    steps:
-    - name: 'Az CLI login'
-      uses: azure/login@v2
-      with:
-          auth-type: SERVICE_PRINCIPAL # IDENTITY
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          # client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    # - name: login
+      uses: ./.github/workflows/auth.yml
+    # runs-on: ubuntu-latest
+    # environment: DEV
+    # steps:
+    # - name: 'Az CLI login'
+    #   uses: azure/login@v2
+    #   with:
+    #       auth-type: SERVICE_PRINCIPAL # IDENTITY
+    #       client-id: ${{ secrets.AZURE_CLIENT_ID }}
+    #       # client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+    #       tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+    #       subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   
   # deploy-terraform-resources:
   #   needs: login-to-azure
@@ -28,6 +30,10 @@ jobs:
     # - name: 'Checkout GitHub Actions'
     #   uses: actions/checkout@v4
 
+  deploy:
+    runs-on: ubuntu-latest
+    environment: DEV
+    steps:
     - name: 'Run Azure CLI commands'
       run: |
           az account show
