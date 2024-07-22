@@ -17,7 +17,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg" {
   location = var.location
-  name     = "${var.resource_group_name}-${random_string.random-string.result}"
+  name     = var.resource_group_name
 }
 
 resource "random_string" "random-string" {
